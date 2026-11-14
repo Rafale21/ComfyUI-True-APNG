@@ -1,3 +1,9 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/rafale21/ComfyUI-True-APNG/main/icon.apng"
+       alt="ComfyUI True APNG"
+       width="200">
+</p>
+
 # ComfyUI True APNG — 1.8.2
 
 Export native ComfyUI videos and IMAGE batches as genuine animated APNG files,
