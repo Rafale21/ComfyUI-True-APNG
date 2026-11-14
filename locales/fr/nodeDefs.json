@@ -1,0 +1,168 @@
+{
+  "TrueAPNGSaveVideo": {
+    "display_name": "Enregistrer APNG (Vidéo)",
+    "description": "Exporte une sortie VIDEO native en APNG animé, avec FPS automatiques et boucle. L’APNG ne contient pas de son.",
+    "inputs": {
+      "video": {
+        "name": "Vidéo",
+        "tooltip": "Entrée VIDEO native de ComfyUI."
+      },
+      "fps_mode": {
+        "name": "Mode des FPS",
+        "tooltip": "source utilise la cadence vidéo ; manual utilise les FPS manuels."
+      },
+      "manual_fps": {
+        "name": "FPS manuels",
+        "tooltip": "Utilisé en mode manual ; change la vitesse sans interpolation."
+      },
+      "filename_prefix": {
+        "name": "Préfixe du fichier",
+        "tooltip": "Chemin relatif au dossier output ; sous-dossiers acceptés."
+      },
+      "loop": {
+        "name": "Nombre de lectures",
+        "tooltip": "Nombre total de lectures : 0 = infini, 1 = une fois, 2 = deux fois."
+      },
+      "compress_level": {
+        "name": "Niveau de compression",
+        "tooltip": "Compression PNG sans perte : 0 plus rapide/volumineux ; 9 plus lent/compact."
+      },
+      "max_side": {
+        "name": "Côté maximal",
+        "tooltip": "0 = taille originale. Sinon, limite le plus grand côté sans agrandir, proportions conservées."
+      },
+      "verify_file": {
+        "name": "Vérifier le fichier",
+        "tooltip": "Vérifie la structure de l’animation et décode chaque image avant publication."
+      },
+      "include_metadata": {
+        "name": "Inclure les métadonnées",
+        "tooltip": "Inclut le workflow ; respecte aussi --disable-metadata."
+      },
+      "mask": {
+        "name": "Masque de transparence",
+        "tooltip": "Masque ComfyUI facultatif : 1 transparent, 0 opaque. Un masque fixe ou par image."
+      },
+      "quality": {
+        "name": "Qualité",
+        "tooltip": "100 conserve les pixels. Les valeurs inférieures réduisent la précision RGB ; risque de bandes dans les dégradés. Alpha conservé."
+      },
+      "resize_method": {
+        "name": "Méthode de redimensionnement",
+        "tooltip": "Filtre de réduction : lanczos conserve le rendu précédent ; lanczos_progressive réduit par étapes puis applique Lanczos ; box moyenne les pixels ; bicubic/bilinear/hamming sont des alternatives ; nearest garde des bords pixellisés. Actif uniquement si max_side réduit la taille."
+      },
+      "optimize_frames": {
+        "name": "Optimiser les images",
+        "tooltip": "Essaie les rectangles modifiés et plusieurs stratégies de compression PNG sans perte. À la tolérance 0, tous les pixels restent exacts. Peut prendre plus de temps."
+      },
+      "preview": {
+        "name": "Aperçu",
+        "tooltip": "Affiche l’APNG animé comme une image, sans lecteur vidéo. Désactivez pour masquer l’aperçu."
+      },
+      "optimization_tolerance": {
+        "name": "Tolérance de l’optimisation",
+        "tooltip": "0 = exact. 100 = tolérance RGB jusqu’à 100 % par canal, acceptée uniquement si les données de l’image sont au moins 1 % plus petites. Alpha exact. Nécessite optimize_frames."
+      },
+      "trim_start": {
+        "name": "Images à retirer au début",
+        "tooltip": "Retire ce nombre d’images au début avant redimensionnement et optimisation. Il doit rester au moins deux images après les deux coupes."
+      },
+      "trim_end": {
+        "name": "Images à retirer à la fin",
+        "tooltip": "Retire ce nombre d’images à la fin avant redimensionnement et optimisation. Il doit rester au moins deux images après les deux coupes."
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "Chemin du fichier"
+      },
+      "1": {
+        "name": "Nombre d’images"
+      },
+      "2": {
+        "name": "FPS encodés"
+      }
+    }
+  },
+  "TrueAPNGSaveImages": {
+    "display_name": "Enregistrer APNG (Images)",
+    "description": "Exporte un batch IMAGE en APNG animé, dans l’ordre des images. Réglez les FPS sur la cadence souhaitée.",
+    "inputs": {
+      "images": {
+        "name": "Images",
+        "tooltip": "Batch d’images dans l’ordre de lecture."
+      },
+      "fps": {
+        "name": "FPS",
+        "tooltip": "Nombre d’images par seconde."
+      },
+      "filename_prefix": {
+        "name": "Préfixe du fichier",
+        "tooltip": "Chemin relatif au dossier output ; sous-dossiers acceptés."
+      },
+      "loop": {
+        "name": "Nombre de lectures",
+        "tooltip": "Nombre total de lectures : 0 = infini, 1 = une fois, 2 = deux fois."
+      },
+      "compress_level": {
+        "name": "Niveau de compression",
+        "tooltip": "Compression PNG sans perte : 0 plus rapide/volumineux ; 9 plus lent/compact."
+      },
+      "max_side": {
+        "name": "Côté maximal",
+        "tooltip": "0 = taille originale. Sinon, limite le plus grand côté sans agrandir, proportions conservées."
+      },
+      "verify_file": {
+        "name": "Vérifier le fichier",
+        "tooltip": "Vérifie la structure de l’animation et décode chaque image avant publication."
+      },
+      "include_metadata": {
+        "name": "Inclure les métadonnées",
+        "tooltip": "Inclut le workflow ; respecte aussi --disable-metadata."
+      },
+      "mask": {
+        "name": "Masque de transparence",
+        "tooltip": "Masque ComfyUI facultatif : 1 transparent, 0 opaque. Un masque fixe ou par image."
+      },
+      "quality": {
+        "name": "Qualité",
+        "tooltip": "100 conserve les pixels. Les valeurs inférieures réduisent la précision RGB ; risque de bandes dans les dégradés. Alpha conservé."
+      },
+      "resize_method": {
+        "name": "Méthode de redimensionnement",
+        "tooltip": "Filtre de réduction : lanczos conserve le rendu précédent ; lanczos_progressive réduit par étapes puis applique Lanczos ; box moyenne les pixels ; bicubic/bilinear/hamming sont des alternatives ; nearest garde des bords pixellisés. Actif uniquement si max_side réduit la taille."
+      },
+      "optimize_frames": {
+        "name": "Optimiser les images",
+        "tooltip": "Essaie les rectangles modifiés et plusieurs stratégies de compression PNG sans perte. À la tolérance 0, tous les pixels restent exacts. Peut prendre plus de temps."
+      },
+      "preview": {
+        "name": "Aperçu",
+        "tooltip": "Affiche l’APNG animé comme une image, sans lecteur vidéo. Désactivez pour masquer l’aperçu."
+      },
+      "optimization_tolerance": {
+        "name": "Tolérance de l’optimisation",
+        "tooltip": "0 = exact. 100 = tolérance RGB jusqu’à 100 % par canal, acceptée uniquement si les données de l’image sont au moins 1 % plus petites. Alpha exact. Nécessite optimize_frames."
+      },
+      "trim_start": {
+        "name": "Images à retirer au début",
+        "tooltip": "Retire ce nombre d’images au début avant redimensionnement et optimisation. Il doit rester au moins deux images après les deux coupes."
+      },
+      "trim_end": {
+        "name": "Images à retirer à la fin",
+        "tooltip": "Retire ce nombre d’images à la fin avant redimensionnement et optimisation. Il doit rester au moins deux images après les deux coupes."
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "Chemin du fichier"
+      },
+      "1": {
+        "name": "Nombre d’images"
+      },
+      "2": {
+        "name": "FPS encodés"
+      }
+    }
+  }
+}

@@ -1,0 +1,168 @@
+{
+  "TrueAPNGSaveVideo": {
+    "display_name": "APNG speichern (Video)",
+    "description": "Exportiert natives ComfyUI-VIDEO als animiertes APNG mit automatischer Bildrate und Wiederholung. APNG enthält keinen Ton.",
+    "inputs": {
+      "video": {
+        "name": "Video",
+        "tooltip": "Nativer VIDEO-Eingang von ComfyUI."
+      },
+      "fps_mode": {
+        "name": "FPS-Modus",
+        "tooltip": "source verwendet die Video-Bildrate; manual verwendet Manuelle FPS."
+      },
+      "manual_fps": {
+        "name": "Manuelle FPS",
+        "tooltip": "Nur im manuellen Modus; ändert das Tempo ohne Zwischenbildberechnung."
+      },
+      "filename_prefix": {
+        "name": "Dateipräfix",
+        "tooltip": "Pfad relativ zu output; Unterordner sind möglich."
+      },
+      "loop": {
+        "name": "Wiedergaben",
+        "tooltip": "Gesamtzahl der Wiedergaben: 0 = endlos, 1 = einmal, 2 = zweimal."
+      },
+      "compress_level": {
+        "name": "Kompressionsstufe",
+        "tooltip": "Verlustfreie PNG-Kompression: 0 schneller/größer; 9 langsamer/kleiner."
+      },
+      "max_side": {
+        "name": "Maximale Kantenlänge",
+        "tooltip": "0 = Originalgröße. Sonst längste Kante begrenzen, ohne Vergrößerung; Seitenverhältnis beibehalten."
+      },
+      "verify_file": {
+        "name": "Datei prüfen",
+        "tooltip": "Animationsstruktur prüfen und jedes Bild vor dem Speichern dekodieren."
+      },
+      "include_metadata": {
+        "name": "Metadaten einbetten",
+        "tooltip": "Workflow einbetten; berücksichtigt auch --disable-metadata."
+      },
+      "mask": {
+        "name": "Transparenzmaske",
+        "tooltip": "Optionale ComfyUI-Maske: 1 transparent, 0 deckend. Eine feste Maske oder eine pro Bild."
+      },
+      "quality": {
+        "name": "Qualität",
+        "tooltip": "100 erhält die Pixel. Kleinere Werte reduzieren die RGB-Präzision; Farbabstufungen können sichtbar werden. Alpha bleibt erhalten."
+      },
+      "resize_method": {
+        "name": "Skalierungsmethode",
+        "tooltip": "Verkleinerungsfilter: lanczos wie bisher; lanczos_progressive mittelt stufenweise vor Lanczos; box mittelt Pixel; bicubic/bilinear/hamming sind Alternativen; nearest erhält harte Pixelkanten. Nur bei Verkleinerung durch max_side."
+      },
+      "optimize_frames": {
+        "name": "Bilder optimieren",
+        "tooltip": "Testet geänderte Rechtecke und mehrere verlustfreie PNG-Kompressionsstrategien. Bei Toleranz 0 bleiben alle Pixel exakt. Kann länger dauern."
+      },
+      "preview": {
+        "name": "Vorschau",
+        "tooltip": "Animierte APNG-Bildvorschau ohne Videoplayer. Zum Ausblenden deaktivieren."
+      },
+      "optimization_tolerance": {
+        "name": "Optimierungstoleranz",
+        "tooltip": "0 = exakt. 100 = RGB-Toleranz bis 100 % pro Kanal, nur bei mindestens 1 % kleineren Bilddaten. Alpha bleibt exakt. Benötigt optimize_frames."
+      },
+      "trim_start": {
+        "name": "Bilder am Anfang entfernen",
+        "tooltip": "Entfernt diese Anzahl Bilder am Anfang vor Skalierung und Optimierung. Insgesamt müssen mindestens zwei Bilder übrig bleiben."
+      },
+      "trim_end": {
+        "name": "Bilder am Ende entfernen",
+        "tooltip": "Entfernt diese Anzahl Bilder am Ende vor Skalierung und Optimierung. Insgesamt müssen mindestens zwei Bilder übrig bleiben."
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "Dateipfad"
+      },
+      "1": {
+        "name": "Bildanzahl"
+      },
+      "2": {
+        "name": "Kodierte FPS"
+      }
+    }
+  },
+  "TrueAPNGSaveImages": {
+    "display_name": "APNG speichern (Bilder)",
+    "description": "Exportiert einen IMAGE-Stapel als animiertes APNG in Bildreihenfolge. Gewünschte Bildrate einstellen.",
+    "inputs": {
+      "images": {
+        "name": "Bilder",
+        "tooltip": "Bildstapel in Wiedergabereihenfolge."
+      },
+      "fps": {
+        "name": "FPS",
+        "tooltip": "Bilder pro Sekunde."
+      },
+      "filename_prefix": {
+        "name": "Dateipräfix",
+        "tooltip": "Pfad relativ zu output; Unterordner sind möglich."
+      },
+      "loop": {
+        "name": "Wiedergaben",
+        "tooltip": "Gesamtzahl der Wiedergaben: 0 = endlos, 1 = einmal, 2 = zweimal."
+      },
+      "compress_level": {
+        "name": "Kompressionsstufe",
+        "tooltip": "Verlustfreie PNG-Kompression: 0 schneller/größer; 9 langsamer/kleiner."
+      },
+      "max_side": {
+        "name": "Maximale Kantenlänge",
+        "tooltip": "0 = Originalgröße. Sonst längste Kante begrenzen, ohne Vergrößerung; Seitenverhältnis beibehalten."
+      },
+      "verify_file": {
+        "name": "Datei prüfen",
+        "tooltip": "Animationsstruktur prüfen und jedes Bild vor dem Speichern dekodieren."
+      },
+      "include_metadata": {
+        "name": "Metadaten einbetten",
+        "tooltip": "Workflow einbetten; berücksichtigt auch --disable-metadata."
+      },
+      "mask": {
+        "name": "Transparenzmaske",
+        "tooltip": "Optionale ComfyUI-Maske: 1 transparent, 0 deckend. Eine feste Maske oder eine pro Bild."
+      },
+      "quality": {
+        "name": "Qualität",
+        "tooltip": "100 erhält die Pixel. Kleinere Werte reduzieren die RGB-Präzision; Farbabstufungen können sichtbar werden. Alpha bleibt erhalten."
+      },
+      "resize_method": {
+        "name": "Skalierungsmethode",
+        "tooltip": "Verkleinerungsfilter: lanczos wie bisher; lanczos_progressive mittelt stufenweise vor Lanczos; box mittelt Pixel; bicubic/bilinear/hamming sind Alternativen; nearest erhält harte Pixelkanten. Nur bei Verkleinerung durch max_side."
+      },
+      "optimize_frames": {
+        "name": "Bilder optimieren",
+        "tooltip": "Testet geänderte Rechtecke und mehrere verlustfreie PNG-Kompressionsstrategien. Bei Toleranz 0 bleiben alle Pixel exakt. Kann länger dauern."
+      },
+      "preview": {
+        "name": "Vorschau",
+        "tooltip": "Animierte APNG-Bildvorschau ohne Videoplayer. Zum Ausblenden deaktivieren."
+      },
+      "optimization_tolerance": {
+        "name": "Optimierungstoleranz",
+        "tooltip": "0 = exakt. 100 = RGB-Toleranz bis 100 % pro Kanal, nur bei mindestens 1 % kleineren Bilddaten. Alpha bleibt exakt. Benötigt optimize_frames."
+      },
+      "trim_start": {
+        "name": "Bilder am Anfang entfernen",
+        "tooltip": "Entfernt diese Anzahl Bilder am Anfang vor Skalierung und Optimierung. Insgesamt müssen mindestens zwei Bilder übrig bleiben."
+      },
+      "trim_end": {
+        "name": "Bilder am Ende entfernen",
+        "tooltip": "Entfernt diese Anzahl Bilder am Ende vor Skalierung und Optimierung. Insgesamt müssen mindestens zwei Bilder übrig bleiben."
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "Dateipfad"
+      },
+      "1": {
+        "name": "Bildanzahl"
+      },
+      "2": {
+        "name": "Kodierte FPS"
+      }
+    }
+  }
+}

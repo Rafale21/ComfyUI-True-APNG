@@ -1,0 +1,3 @@
+# Already provided by a normal ComfyUI installation.
+Pillow>=9.1.0
+numpy>=1.23.0

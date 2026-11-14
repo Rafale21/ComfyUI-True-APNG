@@ -1,0 +1,47 @@
+import { readFile } from "node:fs/promises";
+import assert from "node:assert/strict";
+globalThis.testApp = { registerExtension(extension) { this.extension = extension; } };
+let source = await readFile(new URL("../web/layout.js", import.meta.url), "utf8");
+source = source.replace(/^import .*;$/gm, "");
+source = "const app=globalThis.testApp;\n" + source;
+const { migrateWidgetLayout } = await import(`data:text/javascript;base64,${Buffer.from(source).toString("base64")}`);
+const old = ["APNG/test", 2, 9, 256, false, true, 80, "box", true, 50, false];
+const expected = ["APNG/test", 2, 0, 0, 9, 256, "box", false, true, 80, true, 5, false];
+const graph = { nodes: [{ type: "TrueAPNGSaveImages", widgets_values: [...old] }], definitions: { subgraphs: [{ nodes: [{ type: "TrueAPNGSaveVideo", widgets_values: ["manual", 15, ...old] }] }] } };
+migrateWidgetLayout(graph);
+assert.deepEqual(graph.nodes[0].widgets_values, expected);
+assert.deepEqual(graph.definitions.subgraphs[0].nodes[0].widgets_values, ["manual", 15, ...expected]);
+migrateWidgetLayout(graph);
+assert.deepEqual(graph.nodes[0].widgets_values, expected);
+const firstRelease = { type: "TrueAPNGSaveImages", widgets_values: ["test", 0, 6, 128, true, true] };
+migrateWidgetLayout(firstRelease);
+assert.deepEqual(firstRelease.widgets_values, ["test", 0, 0, 0, 6, 128, "lanczos", true, true, 100, true, 0, true]);
+const other = { type: "UnrelatedNode", widgets_values: [...old] };
+migrateWidgetLayout(other);
+assert.deepEqual(other.widgets_values, old);
+const cyclic = {}; cyclic.self = cyclic; migrateWidgetLayout(cyclic);
+for (const accuracy of [0, 100]) {
+    const values = ["x", 0, 6, 256, "lanczos", true, true, 100, true, accuracy, true];
+    const oldNode = { type: "TrueAPNGSaveImages", widgets_values: values };
+    migrateWidgetLayout(oldNode);
+    assert.equal(oldNode.widgets_values[11], (100 - accuracy) / 10);
+}
+const noMarker = { type: "TrueAPNGSaveImages", widgets_values: expected.map((v, i) => i === 11 ? v * 10 : v) };
+migrateWidgetLayout(noMarker);
+assert.deepEqual(noMarker.widgets_values, expected);
+class OutputNode {}
+testApp.extension.beforeRegisterNodeDef(OutputNode, { name: "TrueAPNGSaveImages" });
+const saved = { properties: { custom: 1 } };
+new OutputNode().onSerialize(saved);
+assert.equal(saved.properties.true_apng_layout, 8);
+assert.equal(saved.properties.custom, 1);
+const v17 = { type: "TrueAPNGSaveImages", properties: { true_apng_layout: 7 }, widgets_values: [...expected] };
+v17.widgets_values[11] = 100;
+migrateWidgetLayout(v17);
+assert.equal(v17.widgets_values[11], 10);
+assert.equal(v17.properties.true_apng_layout, 8);
+const v18 = { type: "TrueAPNGSaveImages", properties: { true_apng_layout: 8 }, widgets_values: [...expected] };
+v18.widgets_values[11] = 100;
+migrateWidgetLayout(v18);
+assert.equal(v18.widgets_values[11], 100);
+console.log("Widget migration tests passed (layout, trimming defaults, inverted tolerance, nested graphs, serialization, idempotence).");

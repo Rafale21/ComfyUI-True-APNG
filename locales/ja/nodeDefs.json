@@ -1,0 +1,168 @@
+{
+  "TrueAPNGSaveVideo": {
+    "display_name": "APNGを保存（動画）",
+    "description": "ComfyUIのネイティブVIDEOをアニメーションAPNGに書き出します。FPSの自動取得と繰り返し再生に対応。音声は含まれません。",
+    "inputs": {
+      "video": {
+        "name": "動画",
+        "tooltip": "ComfyUIのネイティブVIDEO入力。"
+      },
+      "fps_mode": {
+        "name": "FPSモード",
+        "tooltip": "sourceは動画のFPS、manualは手動FPSを使用します。"
+      },
+      "manual_fps": {
+        "name": "手動FPS",
+        "tooltip": "manualモードで使用。補間せずに再生速度を変更します。"
+      },
+      "filename_prefix": {
+        "name": "ファイル名の接頭辞",
+        "tooltip": "outputからの相対パス。サブフォルダーも使用できます。"
+      },
+      "loop": {
+        "name": "再生回数",
+        "tooltip": "合計再生回数：0は無限、1は1回、2は2回。"
+      },
+      "compress_level": {
+        "name": "圧縮レベル",
+        "tooltip": "可逆PNG圧縮：0は高速で大きいファイル、9は低速で小さいファイル。"
+      },
+      "max_side": {
+        "name": "最大辺の長さ",
+        "tooltip": "0は元のサイズ。その他は縦横比を維持し、拡大せずに最大辺を制限します。"
+      },
+      "verify_file": {
+        "name": "ファイルを検証",
+        "tooltip": "保存を確定する前に構造を検証し、すべてのフレームをデコードします。"
+      },
+      "include_metadata": {
+        "name": "メタデータを含める",
+        "tooltip": "ワークフローを埋め込みます。--disable-metadataにも従います。"
+      },
+      "mask": {
+        "name": "透明度マスク",
+        "tooltip": "任意のComfyUIマスク：1は透明、0は不透明。固定マスクまたは各フレームのマスク。"
+      },
+      "quality": {
+        "name": "品質",
+        "tooltip": "100は画素を維持します。低い値はRGB精度を下げ、グラデーションに縞が出る場合があります。アルファは維持します。"
+      },
+      "resize_method": {
+        "name": "サイズ変更方式",
+        "tooltip": "縮小フィルター：lanczosは従来の方式、lanczos_progressiveは段階的に平均化してからLanczosを適用、boxは画素平均、bicubic/bilinear/hammingは別のフィルター、nearestは画素の輪郭を保持します。max_sideで縮小する場合のみ有効です。"
+      },
+      "optimize_frames": {
+        "name": "フレームを最適化",
+        "tooltip": "変更領域と複数の可逆PNG圧縮方式を試します。許容度0では全画素を正確に保持します。処理時間が増える場合があります。"
+      },
+      "preview": {
+        "name": "プレビュー",
+        "tooltip": "動画プレーヤーではなくAPNGアニメーション画像を表示します。無効にすると非表示になります。"
+      },
+      "optimization_tolerance": {
+        "name": "最適化の許容度",
+        "tooltip": "0は完全一致。100はRGB差を各チャンネル最大100%許容しますが、データが1%以上小さくなる場合のみ適用します。アルファは正確です。optimize_framesが必要です。"
+      },
+      "trim_start": {
+        "name": "先頭から削除するフレーム数",
+        "tooltip": "サイズ変更と最適化の前に先頭からこの枚数を削除します。前後の削除後に少なくとも2フレーム必要です。"
+      },
+      "trim_end": {
+        "name": "末尾から削除するフレーム数",
+        "tooltip": "サイズ変更と最適化の前に末尾からこの枚数を削除します。前後の削除後に少なくとも2フレーム必要です。"
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "ファイルのパス"
+      },
+      "1": {
+        "name": "フレーム数"
+      },
+      "2": {
+        "name": "書き出しFPS"
+      }
+    }
+  },
+  "TrueAPNGSaveImages": {
+    "display_name": "APNGを保存（画像）",
+    "description": "IMAGEバッチを元の順序でアニメーションAPNGに書き出します。希望するFPSを設定してください。",
+    "inputs": {
+      "images": {
+        "name": "画像",
+        "tooltip": "再生順に並んだ画像バッチ。"
+      },
+      "fps": {
+        "name": "FPS",
+        "tooltip": "1秒あたりのフレーム数。"
+      },
+      "filename_prefix": {
+        "name": "ファイル名の接頭辞",
+        "tooltip": "outputからの相対パス。サブフォルダーも使用できます。"
+      },
+      "loop": {
+        "name": "再生回数",
+        "tooltip": "合計再生回数：0は無限、1は1回、2は2回。"
+      },
+      "compress_level": {
+        "name": "圧縮レベル",
+        "tooltip": "可逆PNG圧縮：0は高速で大きいファイル、9は低速で小さいファイル。"
+      },
+      "max_side": {
+        "name": "最大辺の長さ",
+        "tooltip": "0は元のサイズ。その他は縦横比を維持し、拡大せずに最大辺を制限します。"
+      },
+      "verify_file": {
+        "name": "ファイルを検証",
+        "tooltip": "保存を確定する前に構造を検証し、すべてのフレームをデコードします。"
+      },
+      "include_metadata": {
+        "name": "メタデータを含める",
+        "tooltip": "ワークフローを埋め込みます。--disable-metadataにも従います。"
+      },
+      "mask": {
+        "name": "透明度マスク",
+        "tooltip": "任意のComfyUIマスク：1は透明、0は不透明。固定マスクまたは各フレームのマスク。"
+      },
+      "quality": {
+        "name": "品質",
+        "tooltip": "100は画素を維持します。低い値はRGB精度を下げ、グラデーションに縞が出る場合があります。アルファは維持します。"
+      },
+      "resize_method": {
+        "name": "サイズ変更方式",
+        "tooltip": "縮小フィルター：lanczosは従来の方式、lanczos_progressiveは段階的に平均化してからLanczosを適用、boxは画素平均、bicubic/bilinear/hammingは別のフィルター、nearestは画素の輪郭を保持します。max_sideで縮小する場合のみ有効です。"
+      },
+      "optimize_frames": {
+        "name": "フレームを最適化",
+        "tooltip": "変更領域と複数の可逆PNG圧縮方式を試します。許容度0では全画素を正確に保持します。処理時間が増える場合があります。"
+      },
+      "preview": {
+        "name": "プレビュー",
+        "tooltip": "動画プレーヤーではなくAPNGアニメーション画像を表示します。無効にすると非表示になります。"
+      },
+      "optimization_tolerance": {
+        "name": "最適化の許容度",
+        "tooltip": "0は完全一致。100はRGB差を各チャンネル最大100%許容しますが、データが1%以上小さくなる場合のみ適用します。アルファは正確です。optimize_framesが必要です。"
+      },
+      "trim_start": {
+        "name": "先頭から削除するフレーム数",
+        "tooltip": "サイズ変更と最適化の前に先頭からこの枚数を削除します。前後の削除後に少なくとも2フレーム必要です。"
+      },
+      "trim_end": {
+        "name": "末尾から削除するフレーム数",
+        "tooltip": "サイズ変更と最適化の前に末尾からこの枚数を削除します。前後の削除後に少なくとも2フレーム必要です。"
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "ファイルのパス"
+      },
+      "1": {
+        "name": "フレーム数"
+      },
+      "2": {
+        "name": "書き出しFPS"
+      }
+    }
+  }
+}

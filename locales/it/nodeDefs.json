@@ -1,0 +1,168 @@
+{
+  "TrueAPNGSaveVideo": {
+    "display_name": "Salva APNG (Video)",
+    "description": "Esporta VIDEO nativo di ComfyUI come APNG animato con FPS automatici e ripetizione. APNG non contiene audio.",
+    "inputs": {
+      "video": {
+        "name": "Video",
+        "tooltip": "Ingresso VIDEO nativo di ComfyUI."
+      },
+      "fps_mode": {
+        "name": "Modalità FPS",
+        "tooltip": "source usa la frequenza del video; manual usa gli FPS manuali."
+      },
+      "manual_fps": {
+        "name": "FPS manuali",
+        "tooltip": "Solo in modalità manual; cambia la velocità senza interpolazione."
+      },
+      "filename_prefix": {
+        "name": "Prefisso del file",
+        "tooltip": "Percorso relativo a output; sono ammesse sottocartelle."
+      },
+      "loop": {
+        "name": "Riproduzioni",
+        "tooltip": "Riproduzioni totali: 0 = infinito, 1 = una volta, 2 = due volte."
+      },
+      "compress_level": {
+        "name": "Livello di compressione",
+        "tooltip": "Compressione PNG senza perdita: 0 più veloce/grande; 9 più lento/piccolo."
+      },
+      "max_side": {
+        "name": "Lato massimo",
+        "tooltip": "0 = dimensione originale. Limita il lato maggiore senza ingrandire, mantenendo le proporzioni."
+      },
+      "verify_file": {
+        "name": "Verifica file",
+        "tooltip": "Verifica la struttura e decodifica ogni fotogramma prima di pubblicare il file."
+      },
+      "include_metadata": {
+        "name": "Includi metadati",
+        "tooltip": "Incorpora il workflow; rispetta --disable-metadata."
+      },
+      "mask": {
+        "name": "Maschera di trasparenza",
+        "tooltip": "Maschera ComfyUI facoltativa: 1 trasparente, 0 opaco. Una fissa o una per fotogramma."
+      },
+      "quality": {
+        "name": "Qualità",
+        "tooltip": "100 conserva i pixel. Valori inferiori riducono la precisione RGB e possono creare bande nei gradienti. Alfa conservato."
+      },
+      "resize_method": {
+        "name": "Metodo di ridimensionamento",
+        "tooltip": "Filtro di riduzione: lanczos mantiene il risultato precedente; lanczos_progressive riduce per fasi prima di Lanczos; box media i pixel; bicubic/bilinear/hamming sono alternative; nearest mantiene bordi pixelati. Solo quando max_side riduce le dimensioni."
+      },
+      "optimize_frames": {
+        "name": "Ottimizza fotogrammi",
+        "tooltip": "Prova rettangoli modificati e più strategie PNG senza perdita. Con tolleranza 0 conserva tutti i pixel. Può richiedere più tempo."
+      },
+      "preview": {
+        "name": "Anteprima",
+        "tooltip": "Mostra APNG come immagine animata, senza lettore video. Disattiva per nasconderla."
+      },
+      "optimization_tolerance": {
+        "name": "Tolleranza di ottimizzazione",
+        "tooltip": "0 = esatta. 100 = tolleranza RGB fino al 100 % per canale, solo se riduce i dati di almeno l’1 %. Alfa esatto. Richiede optimize_frames."
+      },
+      "trim_start": {
+        "name": "Rimuovi fotogrammi iniziali",
+        "tooltip": "Rimuove questo numero di fotogrammi iniziali prima di ridimensionare e ottimizzare. Devono rimanere almeno due fotogrammi dopo entrambi i tagli."
+      },
+      "trim_end": {
+        "name": "Rimuovi fotogrammi finali",
+        "tooltip": "Rimuove questo numero di fotogrammi finali prima di ridimensionare e ottimizzare. Devono rimanere almeno due fotogrammi dopo entrambi i tagli."
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "Percorso del file"
+      },
+      "1": {
+        "name": "Numero di fotogrammi"
+      },
+      "2": {
+        "name": "FPS codificati"
+      }
+    }
+  },
+  "TrueAPNGSaveImages": {
+    "display_name": "Salva APNG (Immagini)",
+    "description": "Esporta un lotto IMAGE come APNG animato mantenendo l’ordine. Imposta gli FPS desiderati.",
+    "inputs": {
+      "images": {
+        "name": "Immagini",
+        "tooltip": "Lotto di immagini in ordine di riproduzione."
+      },
+      "fps": {
+        "name": "FPS",
+        "tooltip": "Fotogrammi al secondo."
+      },
+      "filename_prefix": {
+        "name": "Prefisso del file",
+        "tooltip": "Percorso relativo a output; sono ammesse sottocartelle."
+      },
+      "loop": {
+        "name": "Riproduzioni",
+        "tooltip": "Riproduzioni totali: 0 = infinito, 1 = una volta, 2 = due volte."
+      },
+      "compress_level": {
+        "name": "Livello di compressione",
+        "tooltip": "Compressione PNG senza perdita: 0 più veloce/grande; 9 più lento/piccolo."
+      },
+      "max_side": {
+        "name": "Lato massimo",
+        "tooltip": "0 = dimensione originale. Limita il lato maggiore senza ingrandire, mantenendo le proporzioni."
+      },
+      "verify_file": {
+        "name": "Verifica file",
+        "tooltip": "Verifica la struttura e decodifica ogni fotogramma prima di pubblicare il file."
+      },
+      "include_metadata": {
+        "name": "Includi metadati",
+        "tooltip": "Incorpora il workflow; rispetta --disable-metadata."
+      },
+      "mask": {
+        "name": "Maschera di trasparenza",
+        "tooltip": "Maschera ComfyUI facoltativa: 1 trasparente, 0 opaco. Una fissa o una per fotogramma."
+      },
+      "quality": {
+        "name": "Qualità",
+        "tooltip": "100 conserva i pixel. Valori inferiori riducono la precisione RGB e possono creare bande nei gradienti. Alfa conservato."
+      },
+      "resize_method": {
+        "name": "Metodo di ridimensionamento",
+        "tooltip": "Filtro di riduzione: lanczos mantiene il risultato precedente; lanczos_progressive riduce per fasi prima di Lanczos; box media i pixel; bicubic/bilinear/hamming sono alternative; nearest mantiene bordi pixelati. Solo quando max_side riduce le dimensioni."
+      },
+      "optimize_frames": {
+        "name": "Ottimizza fotogrammi",
+        "tooltip": "Prova rettangoli modificati e più strategie PNG senza perdita. Con tolleranza 0 conserva tutti i pixel. Può richiedere più tempo."
+      },
+      "preview": {
+        "name": "Anteprima",
+        "tooltip": "Mostra APNG come immagine animata, senza lettore video. Disattiva per nasconderla."
+      },
+      "optimization_tolerance": {
+        "name": "Tolleranza di ottimizzazione",
+        "tooltip": "0 = esatta. 100 = tolleranza RGB fino al 100 % per canale, solo se riduce i dati di almeno l’1 %. Alfa esatto. Richiede optimize_frames."
+      },
+      "trim_start": {
+        "name": "Rimuovi fotogrammi iniziali",
+        "tooltip": "Rimuove questo numero di fotogrammi iniziali prima di ridimensionare e ottimizzare. Devono rimanere almeno due fotogrammi dopo entrambi i tagli."
+      },
+      "trim_end": {
+        "name": "Rimuovi fotogrammi finali",
+        "tooltip": "Rimuove questo numero di fotogrammi finali prima di ridimensionare e ottimizzare. Devono rimanere almeno due fotogrammi dopo entrambi i tagli."
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "Percorso del file"
+      },
+      "1": {
+        "name": "Numero di fotogrammi"
+      },
+      "2": {
+        "name": "FPS codificati"
+      }
+    }
+  }
+}

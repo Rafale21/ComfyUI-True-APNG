@@ -1,0 +1,168 @@
+{
+  "TrueAPNGSaveVideo": {
+    "display_name": "Save APNG (Video)",
+    "description": "Export native ComfyUI VIDEO as animated APNG, with automatic FPS and looping. APNG does not contain audio.",
+    "inputs": {
+      "video": {
+        "name": "Video",
+        "tooltip": "Native ComfyUI VIDEO input."
+      },
+      "fps_mode": {
+        "name": "FPS mode",
+        "tooltip": "source uses the video frame rate; manual uses Manual FPS."
+      },
+      "manual_fps": {
+        "name": "Manual FPS",
+        "tooltip": "Used only in manual mode; changes playback speed without interpolation."
+      },
+      "filename_prefix": {
+        "name": "Filename prefix",
+        "tooltip": "Path relative to output; subfolders are allowed."
+      },
+      "loop": {
+        "name": "Play count",
+        "tooltip": "Total plays: 0 = infinite, 1 = once, 2 = twice."
+      },
+      "compress_level": {
+        "name": "Compression level",
+        "tooltip": "Lossless PNG compression: 0 is faster/larger; 9 is slower/smaller."
+      },
+      "max_side": {
+        "name": "Maximum side",
+        "tooltip": "0 = original size. Otherwise limit the longest side, preserving aspect ratio without upscaling."
+      },
+      "verify_file": {
+        "name": "Verify file",
+        "tooltip": "Check animation structure and decode every frame before publishing the file."
+      },
+      "include_metadata": {
+        "name": "Include metadata",
+        "tooltip": "Embed workflow metadata; also respects --disable-metadata."
+      },
+      "mask": {
+        "name": "Transparency mask",
+        "tooltip": "Optional ComfyUI mask: 1 = transparent, 0 = opaque. One mask or one per frame."
+      },
+      "quality": {
+        "name": "Quality",
+        "tooltip": "100 keeps the original pixels. Lower values reduce RGB precision; gradients may show banding. Alpha is preserved."
+      },
+      "resize_method": {
+        "name": "Resize method",
+        "tooltip": "Downscaling filter. lanczos: existing sharp filter; lanczos_progressive: staged averaging then Lanczos; box: pixel averaging; bicubic/bilinear/hamming: alternatives; nearest: hard pixel edges. Used only when max_side reduces size."
+      },
+      "optimize_frames": {
+        "name": "Optimize frames",
+        "tooltip": "Try changed rectangles and multiple lossless PNG compression strategies. At tolerance 0 all pixels stay exact. Extra encoding work may take longer."
+      },
+      "preview": {
+        "name": "Preview",
+        "tooltip": "Show an animated APNG image preview, not a video player. Disable to hide the preview."
+      },
+      "optimization_tolerance": {
+        "name": "Optimization tolerance",
+        "tooltip": "0 = exact. 100 = RGB tolerance up to 100% per channel, only accepted with at least 1% smaller frame data. Alpha stays exact. Requires optimize_frames."
+      },
+      "trim_start": {
+        "name": "Trim start",
+        "tooltip": "Remove this many frames from the start before resizing and optimization. Must leave at least two frames together with trim_end."
+      },
+      "trim_end": {
+        "name": "Trim end",
+        "tooltip": "Remove this many frames from the end before resizing and optimization. Must leave at least two frames together with trim_start."
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "File path"
+      },
+      "1": {
+        "name": "Frame count"
+      },
+      "2": {
+        "name": "Encoded FPS"
+      }
+    }
+  },
+  "TrueAPNGSaveImages": {
+    "display_name": "Save APNG (Images)",
+    "description": "Export an IMAGE batch as animated APNG, preserving frame order. Set FPS to the desired playback rate.",
+    "inputs": {
+      "images": {
+        "name": "Images",
+        "tooltip": "Image batch in playback order."
+      },
+      "fps": {
+        "name": "FPS",
+        "tooltip": "Animation frames per second."
+      },
+      "filename_prefix": {
+        "name": "Filename prefix",
+        "tooltip": "Path relative to output; subfolders are allowed."
+      },
+      "loop": {
+        "name": "Play count",
+        "tooltip": "Total plays: 0 = infinite, 1 = once, 2 = twice."
+      },
+      "compress_level": {
+        "name": "Compression level",
+        "tooltip": "Lossless PNG compression: 0 is faster/larger; 9 is slower/smaller."
+      },
+      "max_side": {
+        "name": "Maximum side",
+        "tooltip": "0 = original size. Otherwise limit the longest side, preserving aspect ratio without upscaling."
+      },
+      "verify_file": {
+        "name": "Verify file",
+        "tooltip": "Check animation structure and decode every frame before publishing the file."
+      },
+      "include_metadata": {
+        "name": "Include metadata",
+        "tooltip": "Embed workflow metadata; also respects --disable-metadata."
+      },
+      "mask": {
+        "name": "Transparency mask",
+        "tooltip": "Optional ComfyUI mask: 1 = transparent, 0 = opaque. One mask or one per frame."
+      },
+      "quality": {
+        "name": "Quality",
+        "tooltip": "100 keeps the original pixels. Lower values reduce RGB precision; gradients may show banding. Alpha is preserved."
+      },
+      "resize_method": {
+        "name": "Resize method",
+        "tooltip": "Downscaling filter. lanczos: existing sharp filter; lanczos_progressive: staged averaging then Lanczos; box: pixel averaging; bicubic/bilinear/hamming: alternatives; nearest: hard pixel edges. Used only when max_side reduces size."
+      },
+      "optimize_frames": {
+        "name": "Optimize frames",
+        "tooltip": "Try changed rectangles and multiple lossless PNG compression strategies. At tolerance 0 all pixels stay exact. Extra encoding work may take longer."
+      },
+      "preview": {
+        "name": "Preview",
+        "tooltip": "Show an animated APNG image preview, not a video player. Disable to hide the preview."
+      },
+      "optimization_tolerance": {
+        "name": "Optimization tolerance",
+        "tooltip": "0 = exact. 100 = RGB tolerance up to 100% per channel, only accepted with at least 1% smaller frame data. Alpha stays exact. Requires optimize_frames."
+      },
+      "trim_start": {
+        "name": "Trim start",
+        "tooltip": "Remove this many frames from the start before resizing and optimization. Must leave at least two frames together with trim_end."
+      },
+      "trim_end": {
+        "name": "Trim end",
+        "tooltip": "Remove this many frames from the end before resizing and optimization. Must leave at least two frames together with trim_start."
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "File path"
+      },
+      "1": {
+        "name": "Frame count"
+      },
+      "2": {
+        "name": "Encoded FPS"
+      }
+    }
+  }
+}

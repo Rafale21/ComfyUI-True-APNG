@@ -1,0 +1,42 @@
+import { readFile } from "node:fs/promises";
+import assert from "node:assert/strict";
+
+const elements = [];
+globalThis.document = { createElement(tag) {
+    const el = { tagName: tag, style: {}, children: [], append(...children) { this.children.push(...children); }, removeAttribute(name) { delete this[name]; }, remove() { this.removed = true; } };
+    elements.push(el);
+    return el;
+} };
+globalThis.testApp = { registerExtension(extension) { this.extension = extension; } };
+globalThis.testApi = { apiURL(path) { return `/prefix${path}`; } };
+let source = await readFile(new URL("../web/preview.js", import.meta.url), "utf8");
+source = source.replace(/^import .*;$/gm, "");
+source = "const app=globalThis.testApp; const api=globalThis.testApi;\n" + source;
+const { updateApngPreview } = await import(`data:text/javascript;base64,${Buffer.from(source).toString("base64")}`);
+const node = { size: [300, 400], widgets: [], addDOMWidget(name, type, box, options) { const widget = { name, type, box, options }; this.widgets.push(widget); return widget; }, setDirtyCanvas() {} };
+const message = { true_apng_preview: [{ filename: "a & b.apng", subfolder: "APNG/test", type: "output" }] };
+updateApngPreview(node, message);
+assert.equal(elements.some(el => el.tagName === "video"), false);
+const image = elements.find(el => el.tagName === "img");
+assert.ok(image.src.startsWith("/prefix/view?"));
+const url = new URL(image.src, "https://example.invalid");
+assert.equal(url.searchParams.get("filename"), "a & b.apng");
+assert.equal(url.searchParams.get("subfolder"), "APNG/test");
+assert.equal(url.searchParams.has("preview"), false);
+assert.equal(url.searchParams.has("channel"), false);
+assert.equal(node.widgets[0].options.serialize, false);
+updateApngPreview(node, message);
+assert.equal(node.widgets.length, 1);
+updateApngPreview(node, { true_apng_preview: [] });
+assert.equal(node.__trueApngImagePreview.box.style.display, "none");
+assert.equal(image.src, undefined);
+assert.equal(node.widgets[0].computeSize()[1], 0);
+updateApngPreview(node, message);
+assert.equal(node.__trueApngImagePreview.box.style.display, "flex");
+class OutputNode {}
+testApp.extension.beforeRegisterNodeDef(OutputNode, { name: "TrueAPNGSaveImages" });
+const instance = new OutputNode();
+Object.assign(instance, node);
+instance.onRemoved();
+assert.equal(instance.__trueApngImagePreview, undefined);
+console.log("Animated image preview tests passed (img element, URL, reuse, disable, cleanup).");

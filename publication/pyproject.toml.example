@@ -1,0 +1,20 @@
+# Copy this file to the repository root as pyproject.toml.
+# Replace YOUR_GITHUB_NAME and YOUR_PUBLISHER_ID before publishing.
+[project]
+name = "true-apng"
+version = "1.8.2"
+description = "Export genuine animated APNG files from ComfyUI videos and image batches, with transparency, resizing, trimming and optimization."
+readme = "README.md"
+dependencies = ["Pillow>=9.1.0", "numpy>=1.23.0"]
+# After choosing a license and adding its full text at the repository root:
+# license = { file = "LICENSE" }
+
+[project.urls]
+Repository = "https://github.com/YOUR_GITHUB_NAME/ComfyUI-True-APNG"
+"Bug Tracker" = "https://github.com/YOUR_GITHUB_NAME/ComfyUI-True-APNG/issues"
+
+[tool.comfy]
+PublisherId = "YOUR_PUBLISHER_ID"
+DisplayName = "ComfyUI True APNG"
+# Optional: add a public square icon, up to 400 x 400 pixels.
+# Icon = "https://raw.githubusercontent.com/YOUR_GITHUB_NAME/ComfyUI-True-APNG/main/icon.png"
