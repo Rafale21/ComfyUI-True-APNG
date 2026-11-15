@@ -2,7 +2,7 @@
 # Replace YOUR_GITHUB_NAME and YOUR_PUBLISHER_ID before publishing.
 [project]
 name = "true-apng"
-version = "1.8.3"
+version = "1.8.4"
 description = "Export genuine animated APNG files from ComfyUI videos and image batches, with transparency, resizing, trimming and optimization."
 readme = "README.md"
 dependencies = ["Pillow>=9.1.0", "numpy>=1.23.0"]
@@ -11,7 +11,7 @@ dependencies = ["Pillow>=9.1.0", "numpy>=1.23.0"]
 
 [project.urls]
 Repository = "https://github.com/Rafale21/ComfyUI-True-APNG"
-"Bug Tracker" = "https://github.com/YOUR_GITHUB_NAME/ComfyUI-True-APNG/issues"
+"Bug Tracker" = "https://github.com/Rafale21/ComfyUI-True-APNG/issues"
 
 [tool.comfy]
 PublisherId = "rafale21"

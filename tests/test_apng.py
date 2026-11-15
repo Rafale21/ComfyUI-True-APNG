@@ -694,11 +694,11 @@ class NodeTests(unittest.TestCase):
             self.assertEqual(inputs["trim_end"][1]["default"], 0)
             self.assertNotIn("optimization_accuracy", inputs)
 
-    def test_tolerance_uses_native_integer_slider_with_full_range(self):
+    def test_tolerance_uses_default_integer_control_with_full_range(self):
         for cls in self.package.NODE_CLASS_MAPPINGS.values():
             kind, options = cls.INPUT_TYPES()["optional"]["optimization_tolerance"]
             self.assertEqual(kind, "INT")
-            self.assertEqual(options["display"], "slider")
+            self.assertNotIn("display", options)
             self.assertEqual((options["min"], options["max"]), (0, 100))
             self.assertEqual(options["step"], 1)
             self.assertNotIn("round", options)

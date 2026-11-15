@@ -306,7 +306,7 @@ def _optional_inputs():
         "default": True,
         "tooltip": "Try changed rectangles and multiple lossless PNG compression strategies. At tolerance 0 all pixels stay exact. Extra encoding work may take longer.",
     }), "optimization_tolerance": ("INT", {
-        "default": 0, "min": 0, "max": 100, "step": 1, "display": "slider",
+        "default": 0, "min": 0, "max": 100, "step": 1,
         "tooltip": "0 = exact. 100 = RGB tolerance up to 100% per channel, only accepted with at least 1% smaller frame data. Alpha stays exact. Requires optimize_frames.",
     }), "preview": ("BOOLEAN", {
         "default": True,
