@@ -17,7 +17,7 @@ like quality, without forcing a special slider appearance. The range stays
 0–100 in steps of 1, with 0 as the default. Encoding behavior and existing
 workflow values are unchanged.
 
-# Changes in 1.8.3
+## Changes in 1.8.3
 
 Added an animated APNG icon to the GitHub README and Comfy Registry listing, also displayed in ComfyUI’s node pack manager.
 The icon was created using this extension.
